@@ -4,14 +4,8 @@ public class Main {
 
     public static void main(String[] args) {
         Shop shop = new Shop();
-        addItemToShop(shop);
-        shop.printShopItems();
-    }
-
-    public static void addItemToShop(Shop shop) {
 
         Scanner scan = new Scanner(System.in);
-
         while (true) {
             System.out.println("Enter item type (R - regular, M - medicine, A - alcohol, V - vine) " +
                     "(to exit press enter):");
@@ -21,36 +15,57 @@ public class Main {
                 break;
             }
 
-            if (itemType.equalsIgnoreCase("r") || itemType.equalsIgnoreCase("m")) {
-                System.out.println("Enter item name:");
-                String itemName = scan.nextLine();
-                System.out.println("Enter item price before taxes:");
-                double priceBeforeTax = Double.parseDouble(scan.nextLine());
-
-                if (itemType.equalsIgnoreCase("r")) {
-                    shop.addItem(new RegularItem(itemName, priceBeforeTax));
-                } else {
-                    shop.addItem(new Medicine(itemName, priceBeforeTax));
-                }
-            }
-
-            if (itemType.equalsIgnoreCase("a") || itemType.equalsIgnoreCase("v")) {
-                System.out.println("Enter item name:");
-                String itemName = scan.nextLine();
-                System.out.println("Enter item price before taxes:");
-                double priceBeforeTax = Double.parseDouble(scan.nextLine());
-                System.out.println("Enter alcohol volume:");
-                double alcoholVolume = Double.parseDouble(scan.nextLine());
-                System.out.println("Enter packageSize:");
-                double packageSize = Double.parseDouble(scan.nextLine());
-
-
-                if (itemType.equalsIgnoreCase("a")) {
-                    shop.addItem(new Alcohol(itemName, priceBeforeTax, alcoholVolume, packageSize));
-                } else {
-                    shop.addItem(new Vine(itemName, priceBeforeTax, alcoholVolume, packageSize));
-                }
-            }
+            addItemToShop(shop, itemType);
         }
+
+        shop.printShopItems();
+    }
+
+    public static void addItemToShop(Shop shop, String itemType) {
+        if (itemType.equalsIgnoreCase("r")) {
+            shop.addItem(new RegularItem(askItemName(), askPriceBeforeTax()));
+
+            return;
+        }
+
+        if (itemType.equalsIgnoreCase("m")) {
+            shop.addItem(new Medicine(askItemName(), askPriceBeforeTax()));
+
+            return;
+        }
+
+        if (itemType.equalsIgnoreCase("a")) {
+            shop.addItem(new Alcohol(askItemName(), askPriceBeforeTax(), askAlcoholVolume(), askPackageSize()));
+
+            return;
+        }
+
+        if (itemType.equalsIgnoreCase("v")) {
+            shop.addItem(new Vine(askItemName(), askPriceBeforeTax(), askAlcoholVolume(), askPackageSize()));
+        }
+    }
+
+    public static String askItemName() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter item name:");
+        return scan.nextLine();
+    }
+
+    public static double askPriceBeforeTax() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter item price before taxes:");
+        return Double.parseDouble(scan.nextLine());
+    }
+
+    public static double askAlcoholVolume() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter alcohol volume:");
+        return Double.parseDouble(scan.nextLine());
+    }
+
+    public static double askPackageSize() {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("Enter packageSize:");
+        return Double.parseDouble(scan.nextLine());
     }
 }
