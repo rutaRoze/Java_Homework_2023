@@ -1,25 +1,11 @@
-public class Medicine implements ShopItem {
-    private String itemName;
-    private double priceBeforeTax;
-
-    private String type;
+public class Medicine extends RegularItem implements ShopItem {
 
     public Medicine(String itemName, double priceBeforeTax) {
-        this.itemName = itemName;
-        this.priceBeforeTax = priceBeforeTax;
-        this.type = "Medicine";
-    }
-
-    public String getItemName() {
-        return itemName;
-    }
-
-    public double getPriceBeforeTax() {
-        return this.priceBeforeTax;
+        super(itemName, priceBeforeTax);
     }
 
     public String getType() {
-        return type;
+        return "Medicine";
     }
 
     @Override
